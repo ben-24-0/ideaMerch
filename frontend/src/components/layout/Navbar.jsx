@@ -18,6 +18,12 @@ export default function Navbar() {
 
         {/* Desktop navigation */}
         <nav className="hidden items-center gap-8 md:flex">
+                    <Link
+            to="/"
+            className="font-black uppercase hover:underline"
+          >
+            Home
+          </Link>
           <Link
             to="/shop"
             className="font-black uppercase hover:underline"

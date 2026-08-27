@@ -1,10 +1,16 @@
-import { createContext, useContext, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+} from "react";
 
 const CartContext = createContext(null);
 
 export function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+
+  const [toasts, setToasts] = useState([]);
 
   const [customer, setCustomer] = useState({
     name: "",
@@ -46,6 +52,40 @@ export function CartProvider({ children }) {
         },
       ];
     });
+
+    const toast = {
+      id: crypto.randomUUID(),
+      product,
+    };
+
+    setToasts((current) => [toast, ...current]);
+  };
+
+  const undoAddToCart = (toastId, productId) => {
+    // Remove this specific toast
+    setToasts((current) =>
+      current.filter((toast) => toast.id !== toastId)
+    );
+
+    // Undo only ONE quantity
+    setCart((currentCart) =>
+      currentCart
+        .map((item) =>
+          item.id === productId
+            ? {
+                ...item,
+                quantity: item.quantity - 1,
+              }
+            : item
+        )
+        .filter((item) => item.quantity > 0)
+    );
+  };
+
+  const closeToast = (toastId) => {
+    setToasts((current) =>
+      current.filter((toast) => toast.id !== toastId)
+    );
   };
 
   const increaseQuantity = (productId) => {
@@ -78,7 +118,9 @@ export function CartProvider({ children }) {
 
   const removeFromCart = (productId) => {
     setCart((currentCart) =>
-      currentCart.filter((item) => item.id !== productId)
+      currentCart.filter(
+        (item) => item.id !== productId
+      )
     );
   };
 
@@ -92,7 +134,8 @@ export function CartProvider({ children }) {
   );
 
   const cartTotal = cart.reduce(
-    (total, item) => total + item.price * item.quantity,
+    (total, item) =>
+      total + item.price * item.quantity,
     0
   );
 
@@ -116,6 +159,10 @@ export function CartProvider({ children }) {
 
         customer,
         updateCustomer,
+
+        toasts,
+        undoAddToCart,
+        closeToast,
       }}
     >
       {children}

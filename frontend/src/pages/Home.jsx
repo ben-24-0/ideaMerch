@@ -5,7 +5,7 @@ import Hero from "../components/home/Hero";
 import Marquee from "../components/home/Marquee";
 import CategoryBrowser from "../components/home/CategoryBrowser";
 import FeaturedProducts from "../components/home/FeaturedCard";
-
+import Footer from "../components/layout/Footer";
 import { products } from "../data/products";
 import { filterProducts } from "../utils/productSearch";
 
@@ -43,6 +43,7 @@ export default function Home() {
           products={filteredProducts}
         />
       </main>
+      <Footer/>
     </div>
   );
 }
