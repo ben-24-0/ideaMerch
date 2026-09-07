@@ -4,6 +4,8 @@ import Home from "./pages/Home";
 import Shop from "./pages/Shop";
 import Custom from "./pages/Custom";
 import About from "./pages/About";
+import NotFound from "./pages/NotFound";
+
 
 import CartDrawer from "./components/shop/CartDrawer";
 import CartToast from "./components/ui/CartToast";
@@ -39,6 +41,7 @@ export default function App() {
   <Route path="/admin/products" element={<Products />} />
   <Route path="/admin/products/new" element={<NewProduct />} />
   <Route path="/admin/orders" element={<Orders />} />
+
   <Route
     path="/admin/custom-requests"
     element={<CustomRequests />}
@@ -47,12 +50,15 @@ export default function App() {
   path="/admin/products/:id/edit"
   element={<EditProduct />}
 />
+  
 </Route>
-
+       <Route path="*" element={<NotFound />} />
       </Routes>
 
       <CartDrawer />
       <CartToast />
     </>
+
+   
   );
 }
