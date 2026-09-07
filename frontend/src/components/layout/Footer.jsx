@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import {
   FaInstagram,
   FaWhatsapp,
+  FaEnvelope
 } from "react-icons/fa";
 
 export default function Footer() {
@@ -72,10 +73,12 @@ export default function Footer() {
 
             <div className="space-y-2 text-sm font-bold">
               <a
-                href="mailto:hello@ideamerch.in"
+                href="mailto:merchshopfisat@gmail.com"
                 className="block hover:text-[var(--yellow)]"
+                className="flex items-center gap-2 hover:text-[var(--yellow)]"
               >
-                hello@ideamerch.in
+                 <FaEnvelope />
+               Gmail
               </a>
 
               <a
@@ -89,7 +92,7 @@ export default function Footer() {
               </a>
             </div>
 
-            <div className="mt-5 flex gap-3">
+            {/* <div className="mt-5 flex gap-3">
               <a
                 href="https://www.instagram.com/benzon_eldo/"
                 aria-label="Instagram"
@@ -105,7 +108,15 @@ export default function Footer() {
               >
                 <FaWhatsapp />
               </a>
-            </div>
+
+                            <a
+                href="#"
+                aria-label="MAIL"
+                className="flex h-10 w-10 items-center justify-center border-2 border-white bg-black hover:bg-[var(--yellow)] hover:text-black"
+              >
+                <FaEnvelope />
+              </a>
+            </div> */}
           </div>
 
         </div>

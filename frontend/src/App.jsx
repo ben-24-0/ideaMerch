@@ -11,7 +11,7 @@ import CartDrawer from "./components/shop/CartDrawer";
 import CartToast from "./components/ui/CartToast";
 
 import AdminLogin from "./pages/admin/AdminLogin";
-import Dashboard from "./pages/admin/Dashboard";
+import Dashboard from "./pages/admin/DashBoard";
 import ProtectedRoute from "./pages/admin/ProtectedRoute";
 import Products from "./pages/admin/Products";
 import Orders from "./pages/admin/Orders";
