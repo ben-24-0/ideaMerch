@@ -121,7 +121,7 @@ export default function About() {
     </div>
   );
 }
-
+// d
 function InfoCard({ number, title, text }) {
   return (
     <div className="border-[3px] border-black bg-white p-5 shadow-[5px_5px_0_#000]">

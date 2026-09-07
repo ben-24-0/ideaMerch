@@ -20,7 +20,7 @@ export default function NotFound() {
                   text-[clamp(7rem,22vw,18rem)]
                   font-black
                   uppercase
-                  leading-[0.72]
+                  leading-[0.73]
                   tracking-[-0.08em]
                   text-[var(--yellow)]
                   [-webkit-text-stroke:3px_#000]
