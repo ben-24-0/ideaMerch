@@ -1,6 +1,6 @@
 import Button from "../ui/Button";
 import ProductCarousel from "./ProductCarousel";
-
+import { Link } from "react-router-dom";
 export default function Hero() {
   return (
     <section className="border-b-[3px] border-black bg-white">
@@ -31,13 +31,18 @@ export default function Hero() {
           </p>
 
           <div className="mt-8 flex flex-wrap gap-5">
-            <Button variant="red">
-              Shop products
-            </Button>
+            <Link
+            to ="/shop"
+            className="neo-button hidden bg-red-500 px-5 py-3 uppercase sm:block">
+               Shop products
+            </Link>
 
-            <Button variant="yellow">
-              Custom order
-            </Button>
+            <Link
+            to ="/custom"
+            className="neo-button hidden bg-yellow-300 px-5 py-3 uppercase sm:block">
+               Custom Order
+            </Link>
+
           </div>
 
           {/* Small service highlights */}

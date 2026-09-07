@@ -4,6 +4,15 @@ export default function Marquee() {
     "LASER ENGRAVED",
     "PERSONALIZED",
     "MADE TO ORDER",
+        "LASER CUT",
+    "LASER ENGRAVED",
+    "PERSONALIZED",
+    "MADE TO ORDER",
+        "LASER CUT",
+    "LASER ENGRAVED",
+
+
+
   ];
 
   return (

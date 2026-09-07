@@ -1,5 +1,6 @@
 import {
   createContext,
+  useCallback,
   useContext,
   useState,
 } from "react";
@@ -16,7 +17,13 @@ export function CartProvider({ children }) {
     name: "",
     email: "",
   });
+  const toastColors = [
+  "green",
+  "yellow",
+  "red",
+];
 
+const [nextToastColor, setNextToastColor] = useState(0);
   const openCart = () => setIsCartOpen(true);
   const closeCart = () => setIsCartOpen(false);
 
@@ -27,66 +34,67 @@ export function CartProvider({ children }) {
     }));
   };
 
-  const addToCart = (product) => {
-    setCart((currentCart) => {
-      const existingItem = currentCart.find(
-        (item) => item.id === product.id
+const addToCart = (product) => {
+  setCart((currentCart) => {
+    const existingItem = currentCart.find(
+      (item) => item.id === product.id
+    );
+
+    if (existingItem) {
+      return currentCart.map((item) =>
+        item.id === product.id
+          ? {
+              ...item,
+              quantity: item.quantity + 1,
+            }
+          : item
       );
+    }
 
-      if (existingItem) {
-        return currentCart.map((item) =>
-          item.id === product.id
-            ? {
-                ...item,
-                quantity: item.quantity + 1,
-              }
-            : item
-        );
-      }
+    return [
+      ...currentCart,
+      {
+        ...product,
+        quantity: 1,
+      },
+    ];
+  });
 
-      return [
-        ...currentCart,
-        {
-          ...product,
-          quantity: 1,
-        },
-      ];
-    });
-
-    const toast = {
-      id: crypto.randomUUID(),
-      product,
-    };
-
-    setToasts((current) => [toast, ...current]);
+  const toast = {
+    id: crypto.randomUUID(),
+    product,
+    color: toastColors[nextToastColor],
   };
 
-  const undoAddToCart = (toastId, productId) => {
-    // Remove this specific toast
-    setToasts((current) =>
-      current.filter((toast) => toast.id !== toastId)
-    );
+  setNextToastColor(
+    (current) => (current + 1) % toastColors.length
+  );
 
-    // Undo only ONE quantity
-    setCart((currentCart) =>
-      currentCart
-        .map((item) =>
-          item.id === productId
-            ? {
-                ...item,
-                quantity: item.quantity - 1,
-              }
-            : item
-        )
-        .filter((item) => item.quantity > 0)
-    );
-  };
+  setToasts((current) => [toast, ...current]);
+};
+const undoAddToCart = useCallback((toastId, productId) => {
+  setToasts((current) =>
+    current.filter((toast) => toast.id !== toastId)
+  );
 
-  const closeToast = (toastId) => {
-    setToasts((current) =>
-      current.filter((toast) => toast.id !== toastId)
-    );
-  };
+  setCart((currentCart) =>
+    currentCart
+      .map((item) =>
+        item.id === productId
+          ? {
+              ...item,
+              quantity: item.quantity - 1,
+            }
+          : item
+      )
+      .filter((item) => item.quantity > 0)
+  );
+}, []);
+const closeToast = useCallback((toastId) => {
+  setToasts((current) =>
+    current.filter((toast) => toast.id !== toastId)
+  );
+}, []);
 
   const increaseQuantity = (productId) => {
     setCart((currentCart) =>

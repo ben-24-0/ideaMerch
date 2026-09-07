@@ -1,6 +1,12 @@
-import ProductCard from "./ProductCard";
+import { Link } from "react-router-dom";
 
-export default function FeaturedProducts({ products = [] }) {
+import ProductCard from "./ProductCard";
+import FeaturedProductsSkeleton from "./FeaturedProductsSkeleton";
+
+export default function FeaturedProducts({
+  products = [],
+  loading = false,
+}) {
   return (
     <section className="border-b-[3px] border-black px-5 py-20">
       <div className="mx-auto max-w-7xl">
@@ -12,19 +18,25 @@ export default function FeaturedProducts({ products = [] }) {
               Don't miss these
             </p>
 
-            <h2 className="text-4xl font-black uppercase tracking-tight md:text-6xl">
+            <h2 className="font-display text-4xl font-black uppercase tracking-tight md:text-6xl">
               Featured.
             </h2>
           </div>
 
-          <button className="neo-button hidden bg-white px-5 py-3 uppercase sm:block">
+          <Link
+            to="/shop"
+            className="neo-button hidden bg-white px-5 py-3 uppercase sm:block"
+          >
             View all
-          </button>
+          </Link>
         </div>
 
-        {/* Products */}
-        {products.length > 0 ? (
-          <div className="grid gap-7 md:grid-cols-2 lg:grid-cols-3">
+        {/* Loading */}
+        {loading ? (
+          <FeaturedProductsSkeleton />
+        ) : products.length > 0 ? (
+          /* Products */
+          <div className="grid gap-7 md:grid-cols-3">
             {products.map((product) => (
               <ProductCard
                 key={product.id}
@@ -33,21 +45,25 @@ export default function FeaturedProducts({ products = [] }) {
             ))}
           </div>
         ) : (
+          /* Empty state */
           <div className="border-[3px] border-black bg-[var(--yellow)] p-10 text-center shadow-[5px_5px_0_#000]">
-            <h3 className="text-3xl font-black uppercase">
-              No products found
+            <h3 className="font-display text-3xl font-black uppercase">
+              Nothing featured yet
             </h3>
 
             <p className="mt-2 font-bold uppercase">
-              Try another search or filter.
+              Check back soon for our top picks.
             </p>
           </div>
         )}
 
-        {/* Mobile */}
-        <button className="neo-button mt-8 w-full bg-white px-5 py-4 uppercase sm:hidden">
+        {/* Mobile View All */}
+        <Link
+          to="/shop"
+          className="neo-button mt-8 block w-full bg-white px-5 py-4 text-center uppercase sm:hidden"
+        >
           View all products
-        </button>
+        </Link>
 
       </div>
     </section>

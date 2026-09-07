@@ -1,0 +1,1 @@
+def pattern(nums:list , ):

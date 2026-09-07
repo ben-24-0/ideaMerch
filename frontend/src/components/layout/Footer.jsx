@@ -91,7 +91,7 @@ export default function Footer() {
 
             <div className="mt-5 flex gap-3">
               <a
-                href="#"
+                href="https://www.instagram.com/benzon_eldo/"
                 aria-label="Instagram"
                 className="flex h-10 w-10 items-center justify-center border-2 border-white bg-black hover:bg-[var(--yellow)] hover:text-black"
               >

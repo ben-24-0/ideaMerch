@@ -1,10 +1,11 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState,useEffect} from "react";
 
 import Navbar from "../components/layout/Navbar";
 import CategoryBrowser from "../components/home/CategoryBrowser";
 import ProductSection from "../components/shop/ProductSection";
+import ProductSectionSkeleton from "../components/shop/ProductSectionSkeleton";
 
-import { products } from "../data/products";
+import { getProducts } from "../api/products";
 import { filterProducts } from "../utils/productSearch";
 
 const categoryOrder = [
@@ -24,6 +25,17 @@ export default function Shop() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All Categories");
   const [productType, setProductType] = useState("All Items");
+
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    getProducts()
+      .then(setProducts)
+      .catch((err) => setError(err.message))
+      .finally(() => setLoading(false));
+  }, []);
 
   const filteredProducts = filterProducts(
     products,
@@ -78,31 +90,48 @@ export default function Shop() {
         />
 
         {/* Products */}
-        <div className="mx-auto max-w-7xl px-5 md:px-8">
+{/* Products */}
+<div className="mx-auto max-w-7xl px-5 md:px-8">
+  {loading ? (
+    <div>
+      <ProductSectionSkeleton cards={4} />
+      <ProductSectionSkeleton cards={4} />
+      <ProductSectionSkeleton cards={4} />
+    </div>
+  ) : error ? (
+    <div className="py-16">
+      <div className="border-[3px] border-black bg-neutral-100 p-10 text-center shadow-[5px_5px_0_#000]">
+        <h2 className="font-display text-3xl font-black uppercase">
+          Couldn't load products
+        </h2>
 
-          {productsByCategory.length === 0 ? (
-            <div className="py-16">
-              <div className="border-[3px] border-black bg-neutral-100 p-10 text-center shadow-[5px_5px_0_#000]">
-                <h2 className="font-display text-3xl font-black uppercase">
-                  Nothing found
-                </h2>
+        <p className="mt-2 font-bold uppercase text-neutral-500">
+          {error}
+        </p>
+      </div>
+    </div>
+  ) : productsByCategory.length === 0 ? (
+    <div className="py-16">
+      <div className="border-[3px] border-black bg-neutral-100 p-10 text-center shadow-[5px_5px_0_#000]">
+        <h2 className="font-display text-3xl font-black uppercase">
+          Nothing found
+        </h2>
 
-                <p className="mt-2 font-bold uppercase text-neutral-500">
-                  Try another search or change your filters.
-                </p>
-              </div>
-            </div>
-          ) : (
-            productsByCategory.map((section) => (
-              <ProductSection
-                key={section.category}
-                title={section.category}
-                products={section.products}
-              />
-            ))
-          )}
-
-        </div>
+        <p className="mt-2 font-bold uppercase text-neutral-500">
+          Try another search or change your filters.
+        </p>
+      </div>
+    </div>
+  ) : (
+    productsByCategory.map((section) => (
+      <ProductSection
+        key={section.category}
+        title={section.category}
+        products={section.products}
+      />
+    ))
+  )}
+</div>
       </main>
     </div>
   );

@@ -3,7 +3,9 @@ import Button from "../ui/Button";
 import { useCart } from "../../context/CartContext";
 
 export default function ProductCard({ product, onWhatsApp }) {
-  const { addToCart, openCart } = useCart();
+  const { addToCart ,openCart} = useCart();
+
+
 
   return (
     <article className="group border-[3px] border-black bg-white shadow-[5px_5px_0_#000]">
@@ -63,7 +65,7 @@ export default function ProductCard({ product, onWhatsApp }) {
             className="w-full px-2 py-2 text-[10px]"
             onClick={() => {
               addToCart(product);
-              openCart();
+              //
             }}
           >
             Add to cart
@@ -72,7 +74,7 @@ export default function ProductCard({ product, onWhatsApp }) {
           <Button
             variant="whatsapp"
             className="flex w-full items-center justify-center gap-1 px-2 py-2 text-[10px]"
-            onClick={() => onWhatsApp?.(product)}
+            onClick={() => {onWhatsApp?.(product) ; addToCart(product);openCart();}}
           >
             <FaWhatsapp className="text-sm" />
             WhatsApp

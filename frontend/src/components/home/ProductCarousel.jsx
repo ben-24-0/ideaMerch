@@ -1,43 +1,6 @@
-import { useEffect, useCallback } from "react";
+import { useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
-
-const products = [
-  {
-    id: 1,
-    name: "Custom Name Plate",
-    price: "₹499",
-    material: "Wood",
-    image: "/products/name-plate.jpg",
-  },
-  {
-    id: 2,
-    name: "Personalized Keychain",
-    price: "₹199",
-    material: "MDF",
-    image: "/products/keychain.jpg",
-  },
-  {
-    id: 3,
-    name: "Tree of Life",
-    price: "₹899",
-    material: "Wood",
-    image: "/products/tree-of-life.jpg",
-  },
-  {
-    id: 4,
-    name: "Acrylic QR Stand",
-    price: "₹349",
-    material: "Acrylic",
-    image: "/products/qr-stand.jpg",
-  },
-  {
-    id: 5,
-    name: "Engraved Gift Box",
-    price: "₹599",
-    material: "Plywood",
-    image: "/products/gift-box.jpg",
-  },
-];
+import { getProducts } from "../../api/products";
 
 export default function ProductCarousel() {
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -46,10 +9,24 @@ export default function ProductCarousel() {
     duration: 35,
   });
 
-  const scrollNext = useCallback(() => {
+
+    const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    getProducts()
+      .then(setProducts)
+      .catch((err) => console.error("Failed to load carousel products:", err));
+  }, []);
+
+    useEffect(() => {
     if (!emblaApi) return;
-    emblaApi.scrollNext();
-  }, [emblaApi]);
+    emblaApi.reInit();
+  }, [emblaApi, products]);
+
+  // const scrollNext = useCallback(() => {
+  //   if (!emblaApi) return;
+  //   emblaApi.scrollNext();
+  // }, [emblaApi]);
 
 useEffect(() => {
   if (!emblaApi) return;
@@ -149,7 +126,7 @@ useEffect(() => {
                     </div>
 
                     <span className="whitespace-nowrap text-xl font-black text-[var(--red)] md:text-2xl">
-                      {product.price}
+                     ₹{product.price}
                     </span>
 
                   </div>
