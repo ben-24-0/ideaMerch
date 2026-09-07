@@ -13,6 +13,7 @@ const variants = {
 };
   return (
     <button
+      type="button"
       className={`
         neo-button
         px-6 py-3

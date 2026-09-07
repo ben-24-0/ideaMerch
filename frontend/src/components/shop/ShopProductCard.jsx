@@ -1,12 +1,13 @@
 import { FaWhatsapp } from "react-icons/fa";
-import { FiShoppingCart } from "react-icons/fi";
 import Button from "../ui/Button";
 import { useCart } from "../../context/CartContext";
 import { useState } from "react";
 export default function ShopProductCard({ product }) {
   const { addToCart, openCart } = useCart();
 
-  const handleWhatsApp = () => {
+  const handleWhatsApp = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
     addToCart(product);
     openCart();
   };
@@ -34,20 +35,21 @@ const [added, setAdded] = useState(false);
       </div>
 
       {/* Details */}
-      <div className="p-3">
+      <div className="p-2.5 sm:p-3">
         <div className="flex min-w-0 items-start justify-between gap-2">
-          <h3 className="min-w-0 flex-1 break-words font-display text-base font-black uppercase leading-[0.95]">
+          <h3 className="min-w-0 flex-1 wrap-break-word font-display text-sm font-black uppercase leading-[0.95] sm:text-base">
             {product.name}
           </h3>
 
-          <span className="shrink-0 whitespace-nowrap text-sm font-black text-[var(--red)]">
+          <span className="shrink-0 whitespace-nowrap text-xs font-black text-(--red) sm:text-sm">
             ₹{product.price}
           </span>
         </div>
 
         {/* Actions */}
-        <div className="mt-3 grid grid-cols-2 gap-2">
+        <div className="mt-3 grid grid-cols-2 gap-1.5 sm:gap-2">
 <Button
+  type="button"
   variant={added ? "yellow" : "black"}
   className="
     flex
@@ -56,11 +58,13 @@ const [added, setAdded] = useState(false);
     justify-center
     gap-1
     whitespace-nowrap
-    px-2
+    px-1
     py-2
     text-[9px]
   "
-  onClick={() => {
+  onClick={(event) => {
+    event.preventDefault();
+    event.stopPropagation();
     addToCart(product);
     setAdded(true);
 
@@ -72,6 +76,7 @@ const [added, setAdded] = useState(false);
   {added ? "Added ✓" : "Add"}
 </Button>
           <Button
+            type="button"
             variant="whatsapp"
             className="
       flex

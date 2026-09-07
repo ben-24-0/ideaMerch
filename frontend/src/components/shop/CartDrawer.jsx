@@ -4,6 +4,7 @@ import {
   FiTrash2,
   FiX,
 } from "react-icons/fi";
+import { useEffect } from "react";
 import { useCart } from "../../context/CartContext";
 import { openWhatsApp } from "../../utils/whatsapp";
 
@@ -19,6 +20,17 @@ export default function CartDrawer() {
     customer,
     updateCustomer,
   } = useCart();
+
+  useEffect(() => {
+    if (!isCartOpen) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isCartOpen]);
 
   const handleWhatsAppOrder = () => {
     if (
@@ -88,9 +100,10 @@ Please confirm availability and invoice details.`;
               : "translate-x-full"
           }
         `}
+        aria-hidden={!isCartOpen}
       >
         {/* Header */}
-        <div className="flex items-center justify-between border-b-[3px] border-black bg-[var(--yellow)] px-5 py-4">
+        <div className="flex items-center justify-between border-b-[3px] border-black bg-(--yellow) px-5 py-4">
           <div>
             <p className="text-xs font-black uppercase">
               Your selection
@@ -110,8 +123,8 @@ Please confirm availability and invoice details.`;
               border-[3px] border-black bg-white
               shadow-[3px_3px_0_#000]
               transition-all
-              hover:translate-x-[2px]
-              hover:translate-y-[2px]
+              hover:translate-x-0.5
+              hover:translate-y-0.5
               hover:shadow-[1px_1px_0_#000]
             "
           >
@@ -120,7 +133,7 @@ Please confirm availability and invoice details.`;
         </div>
 
         {/* Items */}
-        <div className="flex-1 overflow-y-auto p-5">
+        <div className="min-h-0 flex-1 overflow-y-auto p-3 sm:p-5">
           {cart.length === 0 ? (
             <div className="flex h-full items-center justify-center">
               <div className="w-full border-[3px] border-black bg-neutral-100 p-8 text-center shadow-[5px_5px_0_#000]">
@@ -155,7 +168,7 @@ Please confirm availability and invoice details.`;
         </div>
 
         {/* Footer */}
-        <div className="max-h-[55%] overflow-y-auto border-t-[3px] border-black bg-white p-5">
+        <div className="max-h-[55%] overflow-y-auto border-t-[3px] border-black bg-white p-3 sm:p-5">
 
           {/* Total */}
           <div className="mb-5 flex items-center justify-between">
@@ -163,7 +176,7 @@ Please confirm availability and invoice details.`;
               Total
             </span>
 
-            <span className="font-display text-3xl font-black text-[var(--red)]">
+            <span className="font-display text-3xl font-black text-(--red)">
               ₹{cartTotal}
             </span>
           </div>
@@ -198,7 +211,7 @@ Please confirm availability and invoice details.`;
                   bg-white px-4 py-3
                   font-bold outline-none
                   placeholder:text-neutral-400
-                  focus:border-[var(--red)]
+                  focus:border-(--red)
                 "
               />
 
@@ -218,7 +231,7 @@ Please confirm availability and invoice details.`;
                   bg-white px-4 py-3
                   font-bold outline-none
                   placeholder:text-neutral-400
-                  focus:border-[var(--red)]
+                  focus:border-(--red)
                 "
               />
 
@@ -242,8 +255,8 @@ Please confirm availability and invoice details.`;
               font-display text-lg font-black uppercase
               shadow-[5px_5px_0_#000]
               transition-all
-              hover:translate-x-[2px]
-              hover:translate-y-[2px]
+              hover:translate-x-0.5
+              hover:translate-y-0.5
               hover:shadow-[3px_3px_0_#000]
               disabled:cursor-not-allowed
               disabled:opacity-40
@@ -288,7 +301,7 @@ function CartItem({
               type="button"
               onClick={onRemove}
               aria-label={`Remove ${item.name}`}
-              className="shrink-0 text-[var(--red)] hover:scale-110"
+              className="shrink-0 text-(--red) hover:scale-110"
             >
               <FiTrash2
                 size={18}
@@ -314,7 +327,7 @@ function CartItem({
               className="
                 flex h-8 w-8
                 items-center justify-center
-                border-[2px] border-black
+                border-2 border-black
                 bg-white
                 hover:bg-neutral-100
               "
@@ -322,7 +335,7 @@ function CartItem({
               <FiMinus strokeWidth={3} />
             </button>
 
-            <span className="flex h-8 min-w-10 items-center justify-center border-y-[2px] border-black px-2 font-black">
+            <span className="flex h-8 min-w-10 items-center justify-center border-y-2 border-black px-2 font-black">
               {item.quantity}
             </span>
 
@@ -332,9 +345,9 @@ function CartItem({
               className="
                 flex h-8 w-8
                 items-center justify-center
-                border-[2px] border-black
-                bg-[var(--yellow)]
-                hover:bg-[var(--red)]
+                border-2 border-black
+                bg-(--yellow)
+                hover:bg-(--red)
                 hover:text-white
               "
             >

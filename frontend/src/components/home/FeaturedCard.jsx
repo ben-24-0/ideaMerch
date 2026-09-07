@@ -8,7 +8,7 @@ export default function FeaturedProducts({
   loading = false,
 }) {
   return (
-    <section className="border-b-[3px] border-black px-5 py-20">
+    <section className="border-b-[3px] border-black px-4 py-12 sm:px-5 sm:py-20">
       <div className="mx-auto max-w-7xl">
 
         {/* Header */}
@@ -36,7 +36,7 @@ export default function FeaturedProducts({
           <FeaturedProductsSkeleton />
         ) : products.length > 0 ? (
           /* Products */
-          <div className="grid gap-7 md:grid-cols-3">
+          <div className="grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-3 md:gap-7">
             {products.map((product) => (
               <ProductCard
                 key={product.id}

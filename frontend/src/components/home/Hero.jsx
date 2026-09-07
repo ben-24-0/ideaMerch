@@ -1,19 +1,18 @@
-import Button from "../ui/Button";
 import ProductCarousel from "./ProductCarousel";
 import { Link } from "react-router-dom";
 export default function Hero() {
   return (
     <section className="border-b-[3px] border-black bg-white">
-      <div className="mx-auto grid max-w-7xl lg:grid-cols-2">
+      <div className="mx-auto grid w-full min-w-0 max-w-7xl lg:grid-cols-2">
 
         {/* Hero content */}
-        <div className="flex flex-col justify-center px-5 py-16 md:px-10 md:py-24">
+        <div className="min-w-0 flex flex-col justify-center px-4 py-10 sm:px-5 sm:py-14 md:px-10 md:py-24">
 
           <div className="mb-7 w-fit border-[3px] border-black bg-[var(--yellow)] px-4 py-2 font-black uppercase shadow-[5px_5px_0_#000]">
             Laser cut + engraved
           </div>
 
-          <h1 className="text-[clamp(4rem,9vw,8.5rem)] font-black uppercase leading-[0.78] tracking-[-0.075em]">
+          <h1 className="text-[clamp(3.5rem,16vw,8.5rem)] font-black uppercase leading-[0.8] tracking-[-0.075em] sm:text-[clamp(4rem,9vw,8.5rem)]">
             Your
             <br />
             idea.
@@ -30,23 +29,23 @@ export default function Hero() {
             wood, acrylic, MDF, leather and more.
           </p>
 
-          <div className="mt-8 flex flex-wrap gap-5">
+          <div className="mt-7 flex flex-wrap gap-3 sm:mt-8 sm:gap-5">
             <Link
             to ="/shop"
-            className="neo-button hidden bg-red-500 px-5 py-3 uppercase sm:block">
+            className="neo-button bg-red-500 px-4 py-3 text-sm uppercase sm:px-5">
                Shop products
             </Link>
 
             <Link
             to ="/custom"
-            className="neo-button hidden bg-yellow-300 px-5 py-3 uppercase sm:block">
+            className="neo-button bg-yellow-300 px-4 py-3 text-sm uppercase sm:px-5">
                Custom Order
             </Link>
 
           </div>
 
           {/* Small service highlights */}
-          <div className="mt-12 grid max-w-xl grid-cols-2 gap-0 border-t-[3px] border-black sm:grid-cols-4">
+          <div className="mt-8 grid max-w-xl grid-cols-2 gap-0 border-t-[3px] border-black sm:mt-12 sm:grid-cols-4">
 
             <div className="border-b-[3px] border-black py-4 sm:border-b-0 sm:border-r-[3px] sm:pr-4">
               <p className="text-xs font-black uppercase">
@@ -89,7 +88,7 @@ export default function Hero() {
         </div>
 
         {/* Product carousel */}
-        <div className="min-h-[560px] border-t-[3px] border-black bg-[var(--yellow)] lg:min-h-[680px] lg:border-l-[3px] lg:border-t-0">
+        <div className="min-w-0 h-[455px] border-t-[3px] border-black bg-[var(--yellow)] sm:h-[540px] lg:h-auto lg:min-h-[680px] lg:border-l-[3px] lg:border-t-0">
           <ProductCarousel />
         </div>
 

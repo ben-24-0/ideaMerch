@@ -37,6 +37,7 @@ useEffect(() => {
   );
 
   const featuredProducts = products
+    .filter((product) => filteredProducts.includes(product))
     .filter((product) => product.featured)
     .slice(0, 3);
 
