@@ -5,7 +5,7 @@ export async function uploadImage(file) {
   const token = localStorage.getItem("adminToken");
 
   const response = await fetch(
-    `${import.meta.env.VITE_API_URL}/upload/image`,
+    `${import.meta.env.VITE_API_URL}/api/upload/image`,
     {
       method: "POST",
       headers: {
