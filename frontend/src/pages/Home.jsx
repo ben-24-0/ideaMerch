@@ -18,12 +18,14 @@ export default function Home() {
 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
 useEffect(() => {
   getProducts()
     .then(setProducts)
     .catch((err) => {
       console.error("Failed to load products:", err);
+      setError(err.message);
     })
     .finally(() => {
       setLoading(false);
@@ -41,9 +43,26 @@ useEffect(() => {
     .filter((product) => product.featured)
     .slice(0, 3);
 
-return loading ? (
-  <PixelLoader />
-) : (
+if (loading) return <PixelLoader />;
+
+if (error) {
+  return (
+    <div className="pixel-loader-page">
+      <div className="pixel-loader">
+        <p className="pixel-loader__text">{error}</p>
+        <button
+          type="button"
+          className="neo-button bg-white px-5 py-3 uppercase"
+          onClick={() => window.location.reload()}
+        >
+          Try again
+        </button>
+      </div>
+    </div>
+  );
+}
+
+return (
   <div className="min-h-screen">
     <Navbar />
 
